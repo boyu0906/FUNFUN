@@ -9,8 +9,39 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 
 def add_interval(disjoint_intervals, new_interval):
-    # TODO - you fill in here.
-    return []
+    result = []
+    L, R = new_interval.left, new_interval.right
+    flag = 0
+    for ind in range(len(disjoint_intervals)):
+        interval = disjoint_intervals[ind]
+        if flag == 1: # done with interval merge
+            result.append(interval)
+            continue
+        if L < interval.left:
+            if R < interval.left:
+                result.append(Interval(L, R))
+                flag = 1
+                result.append(interval)
+            elif interval.left <= R <= interval.right:
+                result.append(Interval(L, interval.right))
+                flag = 1
+            else:
+                if ind == len(disjoint_intervals) - 1:
+                    result.append(Interval(L, R))
+        elif interval.left <= L <= interval.right:
+            if R < interval.right:
+                result.append(interval)
+                flag = 1
+            else:
+                L = interval.left
+                if ind == len(disjoint_intervals) - 1:
+                    result.append(Interval(L, R))
+        else:
+            result.append(interval)
+            if ind == len(disjoint_intervals) - 1:
+                result.append(Interval(L, R))
+
+    return result
 
 
 @enable_executor_hook
