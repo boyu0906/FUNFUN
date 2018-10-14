@@ -2,16 +2,16 @@ from test_framework import generic_test, test_utils
 
 
 def permutations(A):
-    result, perm = [], [0]*len(A)
+    result = []
 
-    def helper(n):
-        if n == len(A):
-            result.append(list(perm))
+    def helper(i):
+        if i == len(A) - 1:
+            result.append(A.copy())
             return
-        for c in A:
-            if c not in perm[:n]:
-                perm[n] = c
-                helper(n + 1)
+        for j in range(i, len(A)):
+            A[i], A[j] = A[j], A[i]
+            helper(i + 1)
+            A[i], A[j] = A[j], A[i]
 
     helper(0)
     return result
