@@ -2,12 +2,12 @@ from test_framework import generic_test, test_utils
 
 
 def generate_power_set(S):
-    # def helper(input_set):
-    #     if not input_set:
-    #         return [[]]
-    #     sub_result = helper(input_set[1:])
-    #     return [s + [input_set[0]] for s in sub_result] + [s for s in sub_result]
-    # return helper(S)
+    def helper(input_set):
+        if not input_set:
+            return [[]]
+        sub_result = helper(input_set[1:])
+        return [s + [input_set[0]] for s in sub_result] + sub_result
+    return helper(S)
 
     # def backtrack(a, k, A):
     #     if k == len(A):
@@ -25,15 +25,15 @@ def generate_power_set(S):
     # backtrack(a, 0, S)
     # return result
 
-    def helper(to_be_selected, selected_so_far):
-        if to_be_selected == len(S):
-            power_set.append(list(selected_so_far))
-            return
-        helper(to_be_selected + 1, selected_so_far)
-        helper(to_be_selected + 1, selected_so_far + [S[to_be_selected]])
-    power_set = []
-    helper(0, [])
-    return power_set
+    # def helper(to_be_selected, selected_so_far):
+    #     if to_be_selected == len(S):
+    #         power_set.append(list(selected_so_far))
+    #         return
+    #     helper(to_be_selected + 1, selected_so_far)
+    #     helper(to_be_selected + 1, selected_so_far + [S[to_be_selected]])
+    # power_set = []
+    # helper(0, [])
+    # return power_set
 
 if __name__ == '__main__':
     exit(
