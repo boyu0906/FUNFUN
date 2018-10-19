@@ -7,7 +7,7 @@ def palindrome_decompositions(input):
             result.append(list(partial))
         for i in range(len(S)):
             if is_palindrom(S[:i+1]):
-                helper(S[i+1:], partial + [S[:i+1]])
+                helper(S[i+1:], partial + [S[:i+1]]) # not to forget []  
 
     def is_palindrom(S):
         return S == S[::-1]
