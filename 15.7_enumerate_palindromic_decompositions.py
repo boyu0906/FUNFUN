@@ -4,7 +4,7 @@ from test_framework import generic_test
 def palindrome_decompositions(input):
     def helper(S, partial):
         if len(''.join(partial)) == N:
-            result.append(partial)
+            result.append(list(partial))
         for i in range(len(S)):
             if is_palindrom(S[:i+1]):
                 helper(S[i+1:], partial + [S[:i+1]])
