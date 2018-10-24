@@ -6,7 +6,7 @@ def is_pattern_contained_in_grid(grid, S):
         if k == len(S):
             return True
         for i, j in candidate:
-            if grid[i][j] == S[k]:
+            if grid[i][j] == S[k] and (i, j, k) not in previous_attempts:
                 new_candidate = []
                 if i - 1 >= 0:
                     new_candidate.append((i - 1, j))
@@ -19,7 +19,10 @@ def is_pattern_contained_in_grid(grid, S):
                 result = helper(new_candidate, k + 1)
                 if result:
                     return True
+            else:
+                previous_attempts.add((i, j, k))
         return False
+    previous_attempts = set()
     initial_candidate = [(i, j) for i in range(len(grid)) for j in range(len(grid[0]))]
     return helper(initial_candidate, 0)
 
